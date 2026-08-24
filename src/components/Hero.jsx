@@ -73,17 +73,21 @@ export default function Hero({ onOpenContact }) {
     >
       {/* Background Hero Video with Subtle Dark Cinematic Gradient Overlay */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
-        <video
-          ref={videoRef}
-          loop
-          muted={isMuted}
-          
-          playsInline
-          preload="metadata"
-          className="w-full h-full object-cover scale-105 filter brightness-90 contrast-110"
-        >
-          <source src={heroVideo} type="video/mp4" />
-        </video>
+       <video
+  ref={videoRef}
+  muted={isMuted}
+  playsInline
+  preload="metadata"
+  onEnded={() => {
+    setIsPlaying(false);
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+    }
+  }}
+  className="w-full h-full object-cover scale-105 filter brightness-90 contrast-110"
+>
+  <source src={heroVideo} type="video/mp4" />
+</video>
 
         {/* Multi-layer Dark Cinematic Overlay - transparent enough to keep subject visible */}
         <div className="absolute inset-0 bg-[#17151A]/60 backdrop-blur-[1px]" />
